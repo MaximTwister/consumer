@@ -93,3 +93,20 @@ def is_units_exists(units_name):
         print(f"[err] exception: {e} - {type(e)}")
 
     return units
+
+
+def load_models():
+    fields = ["host_id", "hostname"]
+    models = Model.objects.only(*fields).exclude("id")
+    return models
+
+
+def load_metrics(host_id):
+    model = Model.objects.get(host_id=host_id)
+    return [metric.name for metric in model.metrics]
+
+
+def get_metric_data(host_id, metric_name):
+    pass
+    # Todo 1. return metric values [{"ts", "value"},{"ts", "value"},{"ts", "value"}]
+    # Todo 2. return metric.unit.name
